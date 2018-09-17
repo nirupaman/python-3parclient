@@ -28,7 +28,7 @@ This client requires and works with 3PAR InForm 3.1.3 MU1 firmware
 """
 import re
 import time
-import uuid
+import uuid      
 
 try:
     # For Python 3.0 and later
