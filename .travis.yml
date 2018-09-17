@@ -9,7 +9,7 @@ branches:
 install:
   - sudo pip install -r requirements.txt
   - sudo pip install -r test-requirements.txt
-  - sudopip install tox
+  - sudo pip install tox
 # command to run tests
 script:
   - sudo tox -r -e py27
