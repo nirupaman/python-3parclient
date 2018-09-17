@@ -12,4 +12,4 @@ install:
   - sudo pip install tox
 # command to run tests
 script:
-  - sudo tox -r -e py27
+  - sudo tox -r -e py27 test/test_HPE3ParClient_CPG.py
