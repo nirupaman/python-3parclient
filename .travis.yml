@@ -1,15 +1,7 @@
-dist: xenial
 sudo: false
-language: generic
-branches:
-  only:
-    - master
-
-# command to install dependencies
-install:
-  - pip install -r requirements.txt
-  - pip install -r test-requirements.txt
-  - pip install tox
-# command to run tests
-script:
-  - tox -r -e py27
+language: python
+python:
+    - "2.7"
+    - "3.4"
+install: sudo pip install tox-travis
+script: sudo tox
