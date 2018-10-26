@@ -4446,7 +4446,7 @@ class HPE3ParClient(object):
                 err_resp = r.strip()
                 return err_resp
 
-    def createSchedule(self, schedule_name, task, taskfreq='@hourly'):
+    def createSchedule(self, schedule_name, task, taskfreq):
         """Create Schedule for volume snapshot.
         :param schedule_name - The name of the schedule
         :type - string
@@ -4486,9 +4486,9 @@ class HPE3ParClient(object):
                 err = (("Delete snapschedule failed Error is"
                          " '%(err_resp)s' ") %
                        {'err_resp': err_resp})
-                raise exceptions.HTTPNotFound(reason=err)
-        except exceptions.HTTPNotFound as ex:
-            raise exceptions.HTTPNotFound(reason=ex)
+                raise exceptions.SSHException(reason=err)
+        except exceptions.SSHException as ex:
+            raise exceptions.SSHException(reason=ex)
 
     def getSchedule(self, schedule_name):
         """Get Schedule
@@ -4500,9 +4500,9 @@ class HPE3ParClient(object):
            result = self._run(cmd)
            if 'No scheduled tasks ' in result :
                msg = "Couldn't find the schedule '%s'" % schedule_name
-               raise exceptions.HTTPNotFound(error={'desc': msg})
-        except exceptions.HTTPNotFound as ex:
-            raise exceptions.HTTPNotFound(reason=ex)
+               raise exceptions.SSHException(error={'desc': msg})
+        except exceptions.SSHException as ex:
+            raise exceptions.SSHException(reason=ex)
         return result
 
     def modifySchedule(self, name, schedule_opt):
