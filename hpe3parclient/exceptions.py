@@ -471,6 +471,8 @@ class SetQOSRuleException(SSHException):
 class SrstatldException(SSHException):
     message = "SSH command failed: %(command)s"
 
+class SSHNotFoundException(SSHException):
+    message = "SSH command failed: %(command)s"
 
 class ProcessExecutionError(Exception):
     def __init__(self, stdout=None, stderr=None, exit_code=None, cmd=None,

@@ -4503,11 +4503,12 @@ class HPE3ParClient(object):
         cmd = ['showsched ', schedule_name]
         try:
            result = self._run(cmd)
-           if 'No scheduled tasks ' in result :
-               msg = "Couldn't find the schedule '%s'" % schedule_name
-               raise exceptions.SSHException(error={'desc': msg})
-        except exceptions.SSHException as ex:
-            raise exceptions.SSHException(reason=ex)
+           for r in result:
+               if 'No scheduled tasks ' in r :
+                   msg = "Couldn't find the schedule '%s'" % schedule_name
+                   raise exceptions.SSHNotFoundException(msg)
+        except exceptions.SSHNotFoundException as ex:
+            raise exceptions.SSHNotFoundException(ex)
         return result
 
     def modifySchedule(self, name, schedule_opt):
