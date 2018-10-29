@@ -4470,8 +4470,8 @@ class HPE3ParClient(object):
                 raise exceptions.SSHException(err_resp)
             else:
                 for r in resp:
-                    if  'the schedule format is' in str.lower(r):
-                        raise exceptions.SSHException((r.strip()).replace('@', ''))
+                    if str.lower('The schedule format is <minute> <hour> <dom> <month> <dow> or by @hourly @daily @monthly @weekly @monthly @yearly') in str.lower(r):
+                        raise exceptions.SSHException(r.strip())
         except exceptions.SSHException as ex:
             raise exceptions.SSHException(ex)
 
@@ -4545,7 +4545,7 @@ class HPE3ParClient(object):
                 raise exceptions.SSHException(err_resp)
             else:
                 for r in resp:
-                    if  'the schedule format is' in str.lower(r):
+                    if str.lower('The schedule format is <minute> <hour> <dom> <month> <dow> or by @hourly @daily @monthly @weekly @monthly @yearly') in str.lower(r):
                         raise exceptions.SSHException((r.strip()).replace('@', ''))
 
         except exceptions.SSHException as ex:
