@@ -4456,11 +4456,11 @@ class HPE3ParClient(object):
         :type - string
         """
         cmd = ['createsched']
-        cmd.append("\""+task+"\"")
+        cmd.append("\"" + task + "\"")
         if '@' not in taskfreq:
-           cmd.append("\""+taskfreq+"\"")
+            cmd.append("\"" + taskfreq + "\"")
         else:
-           cmd.append(taskfreq)
+            cmd.append(taskfreq)
         cmd.append(schedule_name)
         try:
             resp = self._run(cmd)
@@ -4471,11 +4471,11 @@ class HPE3ParClient(object):
             else:
                 for r in resp:
                     if str.lower('The schedule format is <minute> <hour> <dom>\
- <month> <dow> or by @hourly @daily @monthly @weekly @monthly @yearly') in str.lower(r):
+ <month> <dow> or by @hourly @daily @monthly @weekly @monthly \
+@yearly') in str.lower(r):
                         raise exceptions.SSHException(r.strip())
         except exceptions.SSHException as ex:
             raise exceptions.SSHException(ex)
-
 
     def deleteSchedule(self, schedule_name):
         """Delete Schedule
@@ -4488,9 +4488,8 @@ class HPE3ParClient(object):
 
             err_resp = self.check_response(resp)
             if err_resp:
-                err = (("Delete snapschedule failed Error is"
-                         " '%(err_resp)s' ") %
-                       {'err_resp': err_resp})
+                err = (("Delete snapschedule failed Error is\
+ '%(err_resp)s' ") % {'err_resp': err_resp})
                 raise exceptions.SSHException(reason=err)
         except exceptions.SSHException as ex:
             raise exceptions.SSHException(reason=ex)
@@ -4502,11 +4501,11 @@ class HPE3ParClient(object):
         """
         cmd = ['showsched ', schedule_name]
         try:
-           result = self._run(cmd)
-           for r in result:
-               if 'No scheduled tasks ' in r :
-                   msg = "Couldn't find the schedule '%s'" % schedule_name
-                   raise exceptions.SSHNotFoundException(msg)
+            result = self._run(cmd)
+            for r in result:
+                if 'No scheduled tasks ' in r:
+                    msg = "Couldn't find the schedule '%s'" % schedule_name
+                    raise exceptions.SSHNotFoundException(msg)
         except exceptions.SSHNotFoundException as ex:
             raise exceptions.SSHNotFoundException(ex)
         return result
@@ -4522,22 +4521,22 @@ class HPE3ParClient(object):
             mod_request = {
                 'newName': 'myNewName',         # New name of the schedule
                 'taskFrequency': '0 * * * *'    # String containing cron or
-                                                # @monthly, @hourly, @daily, @yearly
-                                                # and @weekly.
+                                                # @monthly, @hourly, @daily,
+                                                # @yearly and @weekly.
         }
         """
 
         cmd = ['setsched']
         if 'newName' in schedule_opt:
-           cmd.append('-name')
-           cmd.append(schedule_opt['newName'])
+            cmd.append('-name')
+            cmd.append(schedule_opt['newName'])
 
         if 'taskFrequency' in schedule_opt:
-           cmd.append('-s')
-           if '@' not in schedule_opt['taskFrequency']:
-              cmd.append("\""+schedule_opt['taskFrequency']+"\"")
-           else:
-              cmd.append(schedule_opt['taskFrequency'])
+            cmd.append('-s')
+            if '@' not in schedule_opt['taskFrequency']:
+                cmd.append("\"" + schedule_opt['taskFrequency'] + "\"")
+            else:
+                cmd.append(schedule_opt['taskFrequency'])
         cmd.append(name)
         try:
             resp = self._run(cmd)
@@ -4548,8 +4547,9 @@ class HPE3ParClient(object):
             else:
                 for r in resp:
                     if str.lower('The schedule format is <minute> <hour> \
-<dom> <month> <dow> or by @hourly @daily @monthly @weekly @monthly @yearly') in str.lower(r):
-                        raise exceptions.SSHException((r.strip()).replace('@', ''))
+<dom> <month> <dow> or by @hourly @daily @monthly @weekly @monthly \
+@yearly') in str.lower(r):
+                        raise exceptions.SSHException(r.strip())
 
         except exceptions.SSHException as ex:
             raise exceptions.SSHException(ex)
@@ -4561,12 +4561,11 @@ class HPE3ParClient(object):
         """
         cmd = ['setsched', '-suspend', schedule_name]
         try:
-           resp = self._run(cmd)
-           err_resp = self.check_response(resp)
-           if err_resp:
-                err = (("Schedule suspend failed Error is"
-                         " '%(err_resp)s' ") %
-                       {'err_resp': err_resp})
+            resp = self._run(cmd)
+            err_resp = self.check_response(resp)
+            if err_resp:
+                err = (("Schedule suspend failed Error is\
+ '%(err_resp)s' ") % {'err_resp': err_resp})
                 raise exceptions.SSHException(reason=err)
         except exceptions.SSHException as ex:
             raise exceptions.SSHException(reason=ex)
@@ -4578,14 +4577,11 @@ class HPE3ParClient(object):
         """
         cmd = ['setsched', '-resume', schedule_name]
         try:
-           resp = self._run(cmd)
-           err_resp = self.check_response(resp)
-           if err_resp:
-                err = (("Schedule resume failed Error is"
-                         " '%(err_resp)s' ") %
-                       {'err_resp': err_resp})
+            resp = self._run(cmd)
+            err_resp = self.check_response(resp)
+            if err_resp:
+                err = (("Schedule resume failed Error is\
+ '%(err_resp)s' ") % {'err_resp': err_resp})
                 raise exceptions.SSHException(reason=err)
         except exceptions.SSHException as ex:
             raise exceptions.SSHException(reason=ex)
-
-
